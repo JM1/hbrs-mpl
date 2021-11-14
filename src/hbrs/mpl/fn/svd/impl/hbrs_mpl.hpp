@@ -48,6 +48,26 @@
 HBRS_MPL_NAMESPACE_BEGIN
 namespace detail {
 
+template<typename Ring, storage_order Order>
+static std::size_t
+find_q(rtsam<Ring,Order> const& B) {
+	decltype(auto) n_ = n(size(B));
+	for (std::size_t q = 0; q < n_-1; ++q)
+		if (B[n_-1 - q - 1][n_-1 - q] != 0)
+			return q;
+	return n_;
+}
+
+template<typename Ring, storage_order Order>
+static std::size_t
+find_p(rtsam<Ring,Order> const& B, std::size_t const q) {
+	decltype(auto) n_ = n(size(B));
+	for (std::size_t p = n_-1 - q - 1; p >= 1; --p)
+		if (B[p-1][p] == 0)
+			return p;
+	return 0;
+}
+
 template<typename B_>
 static bool
 find_diagonal_zero_rtsam(B_& B, std::size_t p, std::size_t q) {
@@ -260,17 +280,7 @@ svd_impl_rtsam::operator()(
 		 *        p  n-p-q  q
 		 * then B33 is diagonal and B22 has a nonzero superdiagonal.
 		 */
-		
-		{ // First find q
-			for (q = 0; q < n_; ++q) {
-				if (q == n_-1) {
-					q = n_;
-					break;
-				} else if (B[n_-1 - q - 1][n_-1 - q] != 0) {
-					break;
-				}
-			}
-		}
+		q = find_q(B);
 		
 		if (q < n_) {
 			/*
@@ -278,16 +288,7 @@ svd_impl_rtsam::operator()(
 			 * In the book this part is before the if condition. We
 			 * moved it inside the if condition for optimization.
 			 */
-			{
-				for (p = n_-1 - q; p >= 1; --p) {
-					if (B[p-1][p] == 0) {
-						break;
-					} else if (p == 1) {
-						p = 0;
-						break;
-					}
-				}
-			}
+			p = find_p(B, q);
 			
 			/*
 			 * if any diagonal entry in B22 is zero, then zero the
