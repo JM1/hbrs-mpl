@@ -83,21 +83,23 @@ find_diagonal_zero_rtsam(B_& B, std::size_t p, std::size_t q) {
 template<typename B_, typename U_, typename V_>
 static void
 zero_superdiagonal_rtsam(B_& B, std::size_t const p, std::size_t const q, U_& U, V_& V) {
-	auto const n_ = n(size(B));
+	range<std::size_t,std::size_t> const pq = {p, n(size(B))-1 - q};
+	auto B22 = select(B, std::make_pair(pq, pq));
+	auto const _n = n(size(B22));
 
-	for (std::size_t i = p; i < n_ - q; ++i) {
+	for (std::size_t i = 0; i < _n; ++i) {
 		if (B[i][i] == 0) {
-			if (i < n_-1 - q) {
-				for (std::size_t j = i + 1; j < n_ - q; ++j) {
-					auto theta = (*givens)(-B[j][j], B[i][j]);
-					B = (*multiply)(G(i, j, theta), B);
-					U = (*multiply)(U, G(i, j, theta));
+			if (i != _n-1) {
+				for (std::size_t j = i + 1; j < _n; ++j) {
+					auto theta = givens(-B22[j][j], B22[i][j]);
+					B22 = multiply(G(i, j, theta), B22);
+					U   = multiply(U, G(p+i, p+j, theta));
 				}
 			} else {
-				for (std::size_t j = n_-1 - q - 1; j >= p; --j) {
-					auto theta = (*givens)(B[j][j], B[j][n_-1 - q]);
-					B = (*multiply)(B, G(j, n_-1 - q, theta));
-					V = (*multiply)(V, G(j, n_-1 - q, theta));
+				for (long j = _n-1 - 1; j >= (long)0; --j) {
+					auto theta = givens(B22[j][j], B22[j][i]);
+					B22 = multiply(B22, G(  j,   i, theta));
+					V   = multiply(V,   G(p+j, p+i, theta));
 				}
 			}
 		}
