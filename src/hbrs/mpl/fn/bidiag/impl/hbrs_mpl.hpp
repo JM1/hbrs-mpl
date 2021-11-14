@@ -115,7 +115,7 @@ bidiag_impl_rtsam::operator()(rtsam<Ring,Order> const& x, bidiag_control<decompo
 	for (std::size_t j = 0; j < _n; ++j) {
 		range<std::size_t,std::size_t> jm  {j    , x_m-1};
 		range<std::size_t,std::size_t> jn  {j    , x_n-1};
-		range<std::size_t,std::size_t> j1n {j + 1, x_n-1};
+		range<std::size_t,std::size_t> zm  {std::size_t{0}, x_m-1};
 
 		//Use Algorithm 5.1.1 to compute the householder vector.
 		auto Ajmj = (*select)(A, std::make_pair(jm, j));
@@ -141,14 +141,14 @@ bidiag_impl_rtsam::operator()(rtsam<Ring,Order> const& x, bidiag_control<decompo
 		 * inside of A. But since we compute and return U we don't
 		 * do that.
 		 */
-		
-		auto Ui = make_identity(x_m);
-		auto Uijmjm = (*select)(Ui, std::make_pair(jm,jm));
-		Uijmjm = (*minus)(make_identity((*minus)(x_m, j)), multiply(beta, multiply(ni, transpose(ni))));
-		static_assert(std::is_same_v<decltype(Uijmjm), matrix_view>, "");
-		U = (*multiply)(Ui, U);
+		auto Ujm0m = (*select)(U, std::make_pair(jm, zm));
+		static_assert(std::is_same_v<decltype(Ujm0m), matrix_view>, "");
+		Ujm0m = (*minus)(Ujm0m, multiply(multiply(beta, ni), multiply(transpose(ni), Ujm0m)));
 
 		if ((j + 1) <= (x_n - 2)) {
+			range<std::size_t,std::size_t> j1n {j + 1, x_n-1};
+			range<std::size_t,std::size_t> zn  {std::size_t{0}, x_n-1};
+
 			auto Ajj1n = (*select)(A, std::make_pair(j, j1n));
 			static_assert(std::is_same_v<decltype(Ajj1n), rtsarv<Ring>>, "");
 			auto h = (*house)(transpose(Ajj1n));
@@ -164,10 +164,9 @@ bidiag_impl_rtsam::operator()(rtsam<Ring,Order> const& x, bidiag_control<decompo
 			 * inside of A. But since we compute and return V we don't
 			 * do that.
 			 */
-			
-			auto Vjmj1n = (*select)(V, std::make_pair(jn, j1n));
-			static_assert(std::is_same_v<decltype(Vjmj1n), matrix_view>, "");
-			Vjmj1n = (*minus)(Vjmj1n, multiply(multiply(Vjmj1n,ni), transpose(multiply(beta,ni))));
+			auto V0nj1n = (*select)(V, std::make_pair(zn, j1n));
+			static_assert(std::is_same_v<decltype(V0nj1n), matrix_view>, "");
+			V0nj1n = (*minus)(V0nj1n, multiply(multiply(V0nj1n, ni), transpose(multiply(beta, ni))));
 		}
 		
 		BOOST_ASSERT(any_of(U, is_inf) == false);
