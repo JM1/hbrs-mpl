@@ -131,6 +131,23 @@ eigenvalue_of_2x2_matrix_rtsam(
 	}
 }
 
+template<typename Ring, storage_order Order>
+static auto
+dominant_eigenvalue_of_2x2_matrix_rtsam(rtsam<Ring,Order> const& T) {
+    /* Let mu be the eigenvalue of the trailing 2-by-2 submatrix of
+    * T=B'B that is closer to tnn.
+    *
+    * Calculate mu.
+    */
+    range<std::size_t,std::size_t> T22 = {
+        (*m)(size(T)) - 2,
+        (*m)(size(T)) - 1
+    };
+	auto l = eigenvalue_of_2x2_matrix_rtsam((*select)(T, std::make_pair(T22, T22)));
+    auto tnn = T[(*m)(size(T))-1][(*m)(size(T))-1];
+    return std::abs(l.at(0) - tnn) < std::abs(l.at(1) - tnn) ? l.at(0) : l.at(1);
+}
+
 /*
  * Algorithm 8.6.1 (Golub-Kahan SVD Step) on page 491
  * Given a bidiagonal matrix B (which is of real numbers and of the
@@ -157,24 +174,9 @@ svd_step_rtsam(B_& B, std::size_t p, std::size_t q, U_& U, V_& V) {
 		p,
 		(*n)(size(B)) - 1 - q
 	};
-	
 	auto B22 = (*select)(B, std::make_pair(pq, pq));
-
-	/* Let mu be the eigenvalue of the trailing 2-by-2 submatrix of
-	 * T=B'B that is closer to tnn.
-	 *
-	 * Calculate mu.
-	 */
 	auto T = (*multiply)(transpose(B22), B22);
-	range<std::size_t,std::size_t> T22 = {
-		(*m)(size(T)) - 2,
-		(*m)(size(T)) - 1
-	};
-	auto l = eigenvalue_of_2x2_matrix_rtsam((*select)(T, std::make_pair(T22, T22)));
-	auto tnn = T[(*m)(size(T))-1][(*m)(size(T))-1];
-	auto mu = std::abs(l.at(0) - tnn) < std::abs(l.at(1) - tnn) ? l.at(0) : l.at(1);
-
-	auto y = T[0][0] - mu;
+	auto y = T[0][0] - dominant_eigenvalue_of_2x2_matrix_rtsam(T);
 	auto z = T[0][1];
 	
 	for (std::size_t k = 0; k < (*n)(size(B22))-1; ++k) {
