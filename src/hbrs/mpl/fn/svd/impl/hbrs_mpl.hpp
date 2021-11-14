@@ -44,6 +44,7 @@
 #include <hbrs/mpl/fn/less.hpp>
 #include <hbrs/mpl/dt/exception.hpp>
 #include <cmath>
+#include <experimental/array>
 
 HBRS_MPL_NAMESPACE_BEGIN
 namespace detail {
@@ -106,18 +107,15 @@ zero_superdiagonal_rtsam(B_& B, std::size_t const p, std::size_t const q, U_& U,
 /*
  * Returns an array of lenght 2 that holds eigenvalues of 2x2 Matrix A.
  */
-template<
-	typename Ring,
-	storage_order Order,
-	typename Offset,
-	typename Size
->
-static std::array<Ring, 2>
+template<typename Matrix>
+static auto
 eigenvalue_of_2x2_matrix_rtsam(
-	submatrix<rtsam<Ring,Order>&, Offset,Size> const& a
+	Matrix const& a
 ) {
+	using std::experimental::make_array;
+
 	if (a.at(make_matrix_index(0, 1)) == 0 && a.at(make_matrix_index(1, 0)) == 0) {
-		return {1, 0};
+		return make_array(1., 0.);
 	} else {
 		auto T = 
 			a.at(make_matrix_index(0, 0)) +
@@ -126,10 +124,10 @@ eigenvalue_of_2x2_matrix_rtsam(
 			a.at(make_matrix_index(0, 0)) * a.at(make_matrix_index(1, 1)) -
 			a.at(make_matrix_index(0, 1)) * a.at(make_matrix_index(1, 0));
 
-		return {
+		return make_array(
 			T / 2 + std::sqrt((T * T / 4 - D)),
 			T / 2 - std::sqrt((T * T / 4 - D))
-		};
+		);
 	}
 }
 
