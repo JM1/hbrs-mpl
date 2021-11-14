@@ -99,6 +99,16 @@ struct select_impl_rtsam_range_range {
 	template<typename Ring, storage_order Order>
 	auto
 	operator()(
+		rtsam<Ring,Order> const& a,
+		std::pair<
+			range<std::size_t, std::size_t>,
+			range<std::size_t, std::size_t>
+		> const& rngs
+	) const;
+
+	template<typename Ring, storage_order Order>
+	auto
+	operator()(
 		rtsam<Ring,Order>& a,
 		std::pair<
 			range<std::size_t, std::size_t>,

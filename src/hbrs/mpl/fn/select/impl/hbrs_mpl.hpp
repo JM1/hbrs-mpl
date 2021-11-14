@@ -146,6 +146,34 @@ select_impl_rtsam_index_range::operator()(
 template<typename Ring, storage_order Order>
 auto
 select_impl_rtsam_range_range::operator()(
+	rtsam<Ring,Order> const& a,
+	std::pair<
+		range<std::size_t, std::size_t>,
+		range<std::size_t, std::size_t>
+	> const& rngs
+) const {
+	auto rows    = rngs.first;
+	auto columns = rngs.second;
+	
+	BOOST_ASSERT(   rows.last() < a.size().m());
+	BOOST_ASSERT(columns.last() < a.size().n());
+	return submatrix<
+		rtsam<Ring,Order> const&,
+		matrix_index<std::size_t, std::size_t>,
+		matrix_size<std::size_t, std::size_t>
+	> {
+		a,
+		make_matrix_index(rows.first(), columns.first()),
+		make_matrix_size(
+			rows.last() - rows.first() + 1,
+			columns.last() - columns.first() + 1
+		)
+	};
+}
+
+template<typename Ring, storage_order Order>
+auto
+select_impl_rtsam_range_range::operator()(
 	rtsam<Ring,Order>& a,
 	std::pair<
 		range<std::size_t, std::size_t>,
