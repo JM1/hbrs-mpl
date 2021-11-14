@@ -48,6 +48,41 @@
 HBRS_MPL_NAMESPACE_BEGIN
 namespace detail {
 
+template<typename B_>
+static bool
+find_diagonal_zero_rtsam(B_& B, std::size_t p, std::size_t q) {
+	for (std::size_t i = p; i < n(size(B)) - q; ++i) {
+		if (B[i][i] == 0.) {
+			return true;
+		}
+	}
+	return false;
+}
+
+template<typename B_, typename U_, typename V_>
+static void
+zero_superdiagonal_rtsam(B_& B, std::size_t const p, std::size_t const q, U_& U, V_& V) {
+	auto const n_ = n(size(B));
+
+	for (std::size_t i = p; i < n_ - q; ++i) {
+		if (B[i][i] == 0) {
+			if (i < n_-1 - q) {
+				for (std::size_t j = i + 1; j < n_ - q; ++j) {
+					auto theta = (*givens)(-B[j][j], B[i][j]);
+					B = (*multiply)(G(i, j, theta), B);
+					U = (*multiply)(U, G(i, j, theta));
+				}
+			} else {
+				for (std::size_t j = n_-1 - q - 1; j >= p; --j) {
+					auto theta = (*givens)(B[j][j], B[j][n_-1 - q]);
+					B = (*multiply)(B, G(j, n_-1 - q, theta));
+					V = (*multiply)(V, G(j, n_-1 - q, theta));
+				}
+			}
+		}
+	}
+}
+
 /*
  * Returns an array of lenght 2 that holds eigenvalues of 2x2 Matrix A.
  */
@@ -258,27 +293,9 @@ svd_impl_rtsam::operator()(
 			 * if any diagonal entry in B22 is zero, then zero the
 			 * superdiagonal entry in the same row.
 			 */
-			bool zero_found = false; // Turns true once a zero is found in the bidiagonal of B22
-			for (std::size_t i = p; i < n_ - q; ++i) {
-				if (B[i][i] == 0) {
-					zero_found = true;
-					if (i < n_-1 - q) {
-						for (std::size_t j = i + 1; j < n_ - q; ++j) {
-							auto theta = (*givens)(-B[j][j], B[i][j]);
-							B = (*multiply)(G(i, j, theta), B);
-							U = (*multiply)(U, G(i, j, theta));
-						}
-					} else {
-						for (std::size_t j = n_-1 - q - 1; j >= p; --j) {
-							auto theta = (*givens)(B[j][j], B[j][n_-1 - q]);
-							B = (*multiply)(B, G(j, n_-1 - q, theta));
-							V = (*multiply)(V, G(j, n_-1 - q, theta));
-						}
-					}
-				}
-			}
-			
-			if (!zero_found) {
+			if (find_diagonal_zero_rtsam(B, p, q)) {
+				zero_superdiagonal_rtsam(B, p, q, U, V);
+			} else {
 				svd_step_rtsam(B, p, q, U, V); // Apply Algorithm 8.6.1 to B22
 				/* In the book there is another line here that looks
 				 * like this:
