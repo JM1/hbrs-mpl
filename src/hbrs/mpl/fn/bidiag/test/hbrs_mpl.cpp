@@ -108,6 +108,66 @@ BOOST_AUTO_TEST_CASE(bidiag_comparison, * utf::tolerance(_TOL)) {
 		),
 		make_sm(
 			make_ctsav(detail::mat_p), make_matrix_size(hana::size_c<detail::mat_p_m>, hana::size_c<detail::mat_p_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_q), make_matrix_size(hana::size_c<detail::mat_q_m>, hana::size_c<detail::mat_q_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_r), make_matrix_size(hana::size_c<detail::mat_r_m>, hana::size_c<detail::mat_r_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_s), make_matrix_size(hana::size_c<detail::mat_s_m>, hana::size_c<detail::mat_s_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_t), make_matrix_size(hana::size_c<detail::mat_t_m>, hana::size_c<detail::mat_t_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_u), make_matrix_size(hana::size_c<detail::mat_u_m>, hana::size_c<detail::mat_u_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_v), make_matrix_size(hana::size_c<detail::mat_v_m>, hana::size_c<detail::mat_v_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_w), make_matrix_size(hana::size_c<detail::mat_w_m>, hana::size_c<detail::mat_w_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_x), make_matrix_size(hana::size_c<detail::mat_x_m>, hana::size_c<detail::mat_x_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_y), make_matrix_size(hana::size_c<detail::mat_y_m>, hana::size_c<detail::mat_y_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_z), make_matrix_size(hana::size_c<detail::mat_z_m>, hana::size_c<detail::mat_z_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_aa), make_matrix_size(hana::size_c<detail::mat_aa_m>, hana::size_c<detail::mat_aa_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_ab), make_matrix_size(hana::size_c<detail::mat_ab_m>, hana::size_c<detail::mat_ab_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_ac), make_matrix_size(hana::size_c<detail::mat_ac_m>, hana::size_c<detail::mat_ac_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_ad), make_matrix_size(hana::size_c<detail::mat_ad_m>, hana::size_c<detail::mat_ad_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_ae), make_matrix_size(hana::size_c<detail::mat_ae_m>, hana::size_c<detail::mat_ae_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_af), make_matrix_size(hana::size_c<detail::mat_af_m>, hana::size_c<detail::mat_af_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_ag), make_matrix_size(hana::size_c<detail::mat_ag_m>, hana::size_c<detail::mat_ag_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_ah), make_matrix_size(hana::size_c<detail::mat_ah_m>, hana::size_c<detail::mat_ah_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_ai), make_matrix_size(hana::size_c<detail::mat_ai_m>, hana::size_c<detail::mat_ai_n>), row_major_c
+		),
+		make_sm(
+			make_ctsav(detail::mat_aj), make_matrix_size(hana::size_c<detail::mat_aj_m>, hana::size_c<detail::mat_aj_n>), row_major_c
 		)
 	);
 	

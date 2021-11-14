@@ -285,6 +285,227 @@ mat_p[mat_p_m*mat_p_n] = {
 	10,-28, 43, -1,-12,-33, 42,-37, 12, 47,-26, 14, 18, 26, 24,-11, 16,-33, 21, 0
 };
 
+inline static constexpr std::size_t
+mat_q_m = 1, mat_q_n = 1;
+
+inline static constexpr double
+mat_q[mat_q_m*mat_q_n] = {
+	-91.52
+};
+
+inline static constexpr std::size_t
+mat_r_m = 1, mat_r_n = 1;
+
+inline static constexpr double
+mat_r[mat_r_m*mat_r_n] = {
+	0
+};
+
+inline static constexpr std::size_t
+mat_s_m = 5, mat_s_n = 1;
+
+inline static constexpr double
+mat_s[mat_s_m*mat_s_n] = {
+	-156.123,
+	64.512,
+	0,
+	122,
+	-9.3156
+};
+
+inline static constexpr std::size_t
+mat_t_m = 2, mat_t_n = 1;
+
+inline static constexpr double
+mat_t[mat_t_m*mat_t_n] = {
+	16.3,
+	-0.3156
+};
+
+inline static constexpr std::size_t
+mat_u_m = 2, mat_u_n = 1;
+
+inline static constexpr double
+mat_u[mat_u_m*mat_u_n] = {
+	0,
+	994
+};
+
+inline static constexpr std::size_t
+mat_v_m = 2, mat_v_n = 1;
+
+inline static constexpr double
+mat_v[mat_v_m*mat_v_n] = {
+	0,
+	0
+};
+
+inline static constexpr std::size_t
+mat_w_m = 2, mat_w_n = 1;
+
+inline static constexpr double
+mat_w[mat_w_m*mat_w_n] = {
+	2,
+	0
+};
+
+inline static constexpr std::size_t
+mat_x_m = 5, mat_x_n = 5;
+
+inline static constexpr double
+mat_x[mat_x_m*mat_x_n] = {
+	2, 0, 0, 0, 0,
+	0,-9, 0, 0, 0,
+	0, 0,.2, 0, 0,
+	0, 0, 0, 9, 0,
+	0, 0, 0, 0,.7
+};
+
+inline static constexpr std::size_t
+mat_y_m = 5, mat_y_n = 5;
+
+inline static constexpr double
+mat_y[mat_y_m*mat_y_n] = {
+	13, 22.5,   0,   0,   0,
+	 0,   -9,   4,   0,   0,
+	 0,    0,  .2,   2,   0,
+	 0,    0,   0,   9,  -1,
+	 0,    0,   0,   0,  .7
+};
+
+inline static constexpr std::size_t
+mat_z_m = 5, mat_z_n = 5;
+
+inline static constexpr double
+mat_z[mat_z_m*mat_z_n] = {
+	0, 22.5,   0,   0,   0,
+	0,   -9,   4,   0,   0,
+	0,    0,  .2,   2,   0,
+	0,    0,   0,   0,  -1,
+	0,    0,   0,   0,  .7
+};
+
+inline static constexpr std::size_t
+mat_aa_m = 5, mat_aa_n = 5;
+
+inline static constexpr double
+mat_aa[mat_aa_m*mat_aa_n] = {
+	1, 92.6,   0,   0,   0,
+	0,   -9,   0,   0,   0,
+	0,    0,  .4,   0,   0,
+	0,    0,   0,   1,  -9,
+	0,    0,   0,   0,  .7
+};
+
+inline static constexpr std::size_t
+mat_ab_m = 6, mat_ab_n = 6;
+
+inline static constexpr double
+mat_ab[mat_ab_m*mat_ab_n] = {
+	4, 92.6, -.1, 104, 900, 4.2,
+	0,   -9, .17,  65,  99,  -7,
+	0,    0,  .4,  44,  78,  33,
+	0,    0,   0,   1,  -9, 112,
+	0,    0,   0,   0,  .9, 789,
+	0,    0,   0,   0,   0, .89
+};
+
+inline static constexpr std::size_t
+mat_ac_m = 6, mat_ac_n = 6;
+
+inline static constexpr double
+mat_ac[mat_ac_m*mat_ac_n] = {
+	  4,    0,   0,   0,   0,   0,
+	 74,   19,   0,   0,   0,   0,
+	-74,  -60,  .4,   0,   0,   0,
+	421,   40,  44,  11,   0,   0,
+	662, -120, 110, .12, 339,   0,
+	-.4,   .9, -49,  -2,  77, -49
+};
+
+inline static constexpr std::size_t
+mat_ad_m = 5, mat_ad_n = 5;
+
+inline static constexpr double
+mat_ad[mat_ad_m*mat_ad_n] = {
+	-42, 111,  -3,   2,   1,
+	111,   0, .21,   4,  89,
+	 -3, .21,  14,   0,  70,
+	  2,   4,   0,  .1,  -9,
+	  1,  89,  70,  -9, 217
+};
+
+inline static constexpr std::size_t
+mat_ae_m = 5, mat_ae_n = 5;
+
+inline static constexpr double
+mat_ae[mat_ae_m*mat_ae_n] = {
+	0, 0, 0, 1, 0,
+	1, 0, 0, 0, 0,
+	0, 1, 0, 0, 0,
+	0, 0, 0, 0, 1,
+	0, 0, 1, 0, 0
+};
+
+inline static constexpr std::size_t
+mat_af_m = 6, mat_af_n = 6;
+
+inline static constexpr double
+mat_af[mat_af_m*mat_af_n] = {
+	0, 11,  0,  0,  0,  0,
+	0,  0, 22,  0,  0,  0,
+	0,  0,  0, 33,  0,  0,
+	0,  0,  0,  0, 44,  0,
+	0,  0,  0,  0,  0, 55,
+	0,  0,  0,  0,  0,  0
+};
+
+inline static constexpr std::size_t
+mat_ag_m = 5, mat_ag_n = 5;
+
+inline static constexpr double
+mat_ag[mat_ag_m*mat_ag_n] = {
+	9, 7, 0, 0, 0,
+	0, 8, 1, 0, 0,
+	0, 0, 4, 6, 0,
+	0, 0, 0, 7, 5,
+	0, 0, 0, 0, 0
+};
+
+inline static constexpr std::size_t
+mat_ah_m = 5, mat_ah_n = 5;
+
+inline static constexpr double
+mat_ah[mat_ah_m*mat_ah_n] = {
+	9, 0, 0, 0, 0,
+	0, 8, 0, 0, 0,
+	0, 0, 4, 6, 0,
+	0, 0, 0, 7, 5,
+	0, 0, 0, 0, 0
+};
+
+inline static constexpr std::size_t
+mat_ai_m = 6, mat_ai_n = 6;
+
+inline static constexpr double
+mat_ai[mat_ai_m*mat_ai_n] = {
+	9, 7, 0, 0, 0, 0,
+	0, 8, 1, 0, 0, 0,
+	0, 0, 0, 0, 0, 0,
+	0, 0, 0, 6, 0, 0,
+	0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 8,
+};
+
+inline static constexpr std::size_t
+mat_aj_m = 2, mat_aj_n = 2;
+
+inline static constexpr double
+mat_aj[mat_aj_m*mat_aj_n] = {
+	0, 2,
+	2, 0
+};
+
 /* namespace detail */ }
 HBRS_MPL_NAMESPACE_END
 
