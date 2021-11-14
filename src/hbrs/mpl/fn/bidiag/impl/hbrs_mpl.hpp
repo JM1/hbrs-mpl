@@ -111,7 +111,8 @@ bidiag_impl_rtsam::operator()(rtsam<Ring,Order> const& x, bidiag_control<decompo
 	BOOST_ASSERT(any_of(V, is_inf) == false);
 	BOOST_ASSERT(any_of(V, is_nan) == false);
 
-	for (std::size_t j = 0; j < (x_n-1); ++j) {
+	auto const _n = x_m == x_n ? x_n-1 : x_n;
+	for (std::size_t j = 0; j < _n; ++j) {
 		range<std::size_t,std::size_t> jm  {j    , x_m-1};
 		range<std::size_t,std::size_t> jn  {j    , x_n-1};
 		range<std::size_t,std::size_t> j1n {j + 1, x_n-1};
